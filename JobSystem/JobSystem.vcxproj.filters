@@ -24,6 +24,9 @@
     <ClInclude Include="ProducerConsumerProblem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DiningPhilosopherProblem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -33,6 +36,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ProducerConsumerProblem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DiningPhilosopherProblem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
