@@ -21,15 +21,18 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ProducerConsumerProblem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ProducerConsumer.cpp">
+    <ClCompile Include="JobSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JobSystem.cpp">
+    <ClCompile Include="ProducerConsumerProblem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
