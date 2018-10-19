@@ -4,6 +4,9 @@
 #include <mutex>
 #include <condition_variable>
 #include <queue>
+#include <time.h>
+#include <stdlib.h>
+#include <chrono>
 
 using namespace std;
 mutex mtx;
@@ -13,23 +16,25 @@ queue<int> q;
 bool finished = false;
 
 
-void Producer(int n)
+
+void Producer()
 {
-	for (int i = 0; i < n; ++i)
+	while(true)
 	{
-		{
-			lock_guard<mutex> lock(mtx);
-			q.push(i);
-			cout << "Pushing " << i << endl;
-		}
+		
+		int num = rand() % 100 + 1;
+
+		unique_lock<mutex> lock(mtx); //locks everything till producer finishes producing
+		q.push(num);
+		cout << "ID " << this_thread::get_id() << "Producing " << num << endl;
+
 		cv.notify_all();
+		lock.unlock();
+		this_thread::sleep_for(chrono::milliseconds(50));
+
 	}
-	{
-		lock_guard<mutex> lock(mtx);
-		finished = true;
 	
-	}
-	cv.notify_all();
+	
 }
 
 void Consumer()
@@ -37,27 +42,28 @@ void Consumer()
 	while (true)
 	{
 		unique_lock<mutex> lock(mtx);
-		cv.wait(lock, [] {return finished || !q.empty(); });
+		cv.wait(lock, [] {return !q.empty(); });
 		while (!q.empty())
 		{
-			cout << "Consuming " << q.front() << endl;
+			cout << "ID " << this_thread::get_id() << "Consuming "  << q.front() << endl;
 			q.pop();
 		}
-		if (finished)
-		{
-			break;
-		}
+		lock.unlock();
+		this_thread::sleep_for(chrono::seconds(2));
+		
 	}
+	
 }
 
 int main()
-{
-	thread t1(Producer, 10);
+{	
+	srand(time(NULL));
+	
+	thread t1(Producer);
 	thread t2(Consumer);
-	t1.join();
-	t2.join();
+	//t1.join();
+	//t2.join();
 
-	cout << "Completed! " << endl;
 	getchar();
 	return 0;
 }
