@@ -1,18 +1,24 @@
 #include "DiningPhilosopherProblem.h"
-struct fork
+
+
+
+void philosopher::dine()
 {
-	mutex forkMtx;
-};
+	while (!dinnerTable.ready)
+	{
+		do
+		{
+			think();
+			eat();
+		} while (dinnerTable.ready);
+		
+	}
+}
 
-struct table
+void philosopher::think()
 {
-	bool read = false;
-	array<fork, numPhilosophers> forks;
-};
+}
 
-struct philosopher
+void philosopher::eat()
 {
-
-};
-
-
+}

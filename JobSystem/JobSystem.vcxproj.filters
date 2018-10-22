@@ -24,7 +24,7 @@
     <ClInclude Include="ProducerConsumerProblem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DiningPhilosopherProblem.h">
+    <ClInclude Include="DiningPhilosopher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,7 +38,7 @@
     <ClCompile Include="ProducerConsumerProblem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DiningPhilosopherProblem.cpp">
+    <ClCompile Include="DiningPhilosopher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

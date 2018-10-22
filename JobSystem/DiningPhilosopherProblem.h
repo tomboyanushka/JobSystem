@@ -12,8 +12,51 @@
 
 #include <mutex>
 #include <array>
+#include <random>
+#include <string>
+#include <string_view>
 using namespace std;
 const int numPhilosophers = 5;
+
+struct fork
+{
+	mutex forkMtx;
+};
+
+struct table
+{
+	bool ready = false;
+	array<fork, numPhilosophers> forks;
+};
+
+struct philosopher
+{
+private:
+	string const name;
+	table const & dinnerTable;
+	fork& leftFork;
+	fork& rightFork;
+	thread lifeThread;
+	mt19937 range{ random_device{}() }; //Mersenne Twister 19937 generator; A Mersenne Twister pseudo - random generator of 32 - bit numbers with a state size of 19937 bits.
+
+public:
+	philosopher(s n, table const& t, fork& l, fork& r) :name(n), dinnerTable(t), leftFork(l), rightFork(r), lifeThread(&philosopher::dine, this)
+	{
+	}
+	~philosopher()
+	{
+		lifeThread.join();
+	}
+
+	//Three main methods in the philosopher class
+	//dine
+	//think
+	//eat
+	void dine();
+	void think();
+	void eat();
+};
+
 
 class DiningPhilosopherProblem
 {
@@ -24,6 +67,8 @@ public:
 	~DiningPhilosopherProblem() {};
 
 	
+
+
 };
 
 
