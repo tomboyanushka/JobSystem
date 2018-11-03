@@ -7,15 +7,15 @@ auto eat = [](Chopstick* leftChopstick, Chopstick* rightChopstick, int philosoph
 			throw exception("Left and right chopsticks are the same");
 
 		lock(leftChopstick->mtx, rightChopstick->mtx);
-		lock_guard<mutex> left(leftChopstick->mtx, adopt_lock);
-		lock_guard<mutex> right(rightChopstick->mtx, adopt_lock);
+	
 
-		string philosopher = "Philosopher " + to_string(philosopherNumber) + " eats. \n";
-		string chopstick = "Philosopher " + to_string(philosopherNumber) + " picked Chopstick number " 
+		string philosopher = "Philosopher " + to_string(philosopherNumber) + " eats \n";
+		string chopstick = "Philosopher " + to_string(philosopherNumber) + " picked Chopstick number "
 			+ to_string(leftChopstick->chopstickNumber) + " and " + to_string(rightChopstick->chopstickNumber);
 		cout << philosopher;
-		cout << chopstick;
-
+		lock_guard<mutex> left(leftChopstick->mtx, adopt_lock);
+		lock_guard<mutex> right(rightChopstick->mtx, adopt_lock);
+		//cout << chopstick << endl;
 	}
 
 };
@@ -36,8 +36,7 @@ void DiningPhilosopher::Init()
 	tasks[0] = thread(eat,
 		chopsticks[0].get(),						//left chopstick #1
 		chopsticks[numPhilosophers - 1].get(),		//right chopstick #5
-		0 + 1									//philosopher number
-);
+		0 + 1);										//philosopher number
 
 	for (int i = 1; i < numPhilosophers; ++i)
 	{
@@ -49,8 +48,15 @@ void DiningPhilosopher::Init()
 	}
 
 	//std::mem_fn is a call wrapper.
+	//for_each(tasks.begin(), tasks.end(), mem_fn(&thread::join));
+	tasks.begin();
+	tasks.end();
 
-	for_each (tasks.begin(), tasks.end(), mem_fn(&thread::join));
+	for(auto &t : tasks)
+	{
+		t.join();
+	}
+
 
 }
 

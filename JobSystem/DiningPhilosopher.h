@@ -16,6 +16,8 @@
 #include <iostream>
 #include <vector>
 #include <functional>
+#include <time.h>
+#include <chrono>
 using namespace std;
 static const int numPhilosophers = 5;
 
