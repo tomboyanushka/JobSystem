@@ -34,7 +34,7 @@ void ThreadPool::Start(size_t numberOfThreads)
 					unique_lock<mutex> lock{ mtx };
 					cv.wait(lock, [=] { return isStopped || !taskQueue.empty(); });
 
-					if (isStopped)
+					if (isStopped && taskQueue.empty())
 					{
 						break;
 					}
