@@ -2,6 +2,7 @@
 #include <functional>
 #include <vector>
 #include <iostream>
+#include <future>
 #include <thread> 
 #include <condition_variable>
 #include <mutex>
@@ -17,7 +18,20 @@ public:
 
 	using Task = function<void()>;			//I do not understand this
 
-	void Enqueue(Task task);
+	template<class T>
+	auto Enqueue(T task)-> future<decltype(task())>
+	{
+		auto wrapper = make_shared<packaged_task<decltype(task()) ()>>(move(task));
+			{
+				unique_lock<mutex> lock{ mtx };
+				taskQueue.emplace([=] 
+				{
+					(*wrapper)();
+				});
+			}
+			cv.notify_one();
+			return wrapper->get_future();
+	}
 private:
 	vector<thread> threads;
 	condition_variable cv;

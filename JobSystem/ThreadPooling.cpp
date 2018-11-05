@@ -10,14 +10,14 @@ ThreadPool::~ThreadPool()
 	Stop();
 }
 
-void ThreadPool::Enqueue(Task task)
-{
-	{
-		unique_lock<mutex> lock{ mtx };
-		taskQueue.emplace(move(task));
-	}
-	cv.notify_one();
-}
+//void ThreadPool::Enqueue(Task task)
+//{
+//	{
+//		unique_lock<mutex> lock{ mtx };
+//		taskQueue.emplace(move(task));
+//	}
+//	cv.notify_one();
+//}
 
 void ThreadPool::Start(size_t numberOfThreads)
 {
