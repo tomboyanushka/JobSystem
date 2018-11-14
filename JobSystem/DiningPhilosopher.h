@@ -30,9 +30,6 @@ public:
 	DiningPhilosopher() {};
 	~DiningPhilosopher() {};
 	void Init();
-	
-	
-
 };
 struct Chopstick
 {

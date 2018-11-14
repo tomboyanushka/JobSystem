@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ConcurrentQueue.h" />
     <ClInclude Include="DiningPhilosopher.h" />
     <ClInclude Include="IJob.h" />
     <ClInclude Include="ProducerConsumerProblem.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="ThreadPooling.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ConcurrentQueue.cpp" />
     <ClCompile Include="DiningPhilosopher.cpp" />
     <ClCompile Include="JobSystem.cpp" />
     <ClCompile Include="ProducerConsumerProblem.cpp" />

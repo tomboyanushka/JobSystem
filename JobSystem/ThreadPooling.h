@@ -8,21 +8,20 @@
 #include <mutex>
 #include <queue>
 #include "IJob.h"
+#include "ConcurrentQueue.h"
 
 using namespace std;
 
 class ThreadPool
 {
 public:
-	explicit ThreadPool(size_t numberOfThreads);			//explicit: You can only assign values that match the values of the class type.
+	explicit ThreadPool(size_t numberOfThreads);			
 	~ThreadPool();
 
 	using Task = function<void()>;			
 
-	//template<class T>
 	auto Enqueue(IJob* task)-> future<void>
 	{
-		//auto wrapper = make_shared<packaged_task<decltype(task()) ()>>(move(task));
 		auto wrapper = make_shared<packaged_task<void()>>([task] { task->Execute(); });
 	
 			{
@@ -41,6 +40,7 @@ private:
 	mutex mtx;
 	bool isStopped = false;
 	queue<Task> taskQueue;
+	ConcurrentQueue<IJob> CallbackQueue;
 
 	void Start(size_t numberOfThreads);
 
