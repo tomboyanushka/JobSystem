@@ -1,7 +1,12 @@
 #pragma once
+#include <mutex>
 class IJob
 {
-
+	std::mutex mutex;
 public:
-	virtual void Execute() = 0; //pure abstract function
+	virtual void Execute() {};
+	virtual void Callback() {};
+	void SetIsCompleted(bool value);
+	bool IsCompleted();
+	bool mIsCompleted = true;
 };

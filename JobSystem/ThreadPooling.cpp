@@ -16,7 +16,7 @@ void ThreadPool::Start(size_t numberOfThreads)
 	for (auto i = 0; i < numberOfThreads; ++i)
 	{
 											
-		threads.emplace_back([=]					
+		threads.emplace_back([&]					
 		{
 			while (true)
 			{
@@ -52,4 +52,13 @@ void ThreadPool::Stop() noexcept
 	{
 		thread.join();
 	}	
+}
+
+void ThreadPool::ExecuteCallbacks()
+{
+	while (!CallbackQueue.IsEmpty())
+	{
+		auto popped = CallbackQueue.Pop(); 
+		popped->Callback();
+	}
 }

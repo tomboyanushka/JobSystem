@@ -27,7 +27,7 @@ template<typename T>
 T ConcurrentQueue<T>::Pop()
 {
 	unique_lock<mutex> lock(mtx);
-	while (IsEmpty())
+	while (queue.empty())
 	{
 		cv.wait(lock);
 	}
@@ -41,7 +41,7 @@ template<typename T>
 void ConcurrentQueue<T>::Push(const T &item)
 {
 	unique_lock<mutex> lock(mtx);
-	queue.push();
+	queue.push(item);
 	lock.unlock();
 	cv.notify_one();
 }
@@ -49,7 +49,7 @@ void ConcurrentQueue<T>::Push(const T &item)
 template<typename T>
 bool ConcurrentQueue<T>::IsEmpty()
 {
-	unique_lock<mutex> lock(mtx);
+	std::unique_lock<mutex> lock(mtx);
 	return queue.empty();
 }
 
