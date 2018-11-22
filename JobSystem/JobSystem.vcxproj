@@ -84,7 +84,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
@@ -148,18 +148,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ConcurrentQueue.h" />
-    <ClInclude Include="DiningPhilosopher.h" />
     <ClInclude Include="IJob.h" />
-    <ClInclude Include="ProducerConsumerProblem.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ThreadPooling.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConcurrentQueue.cpp" />
-    <ClCompile Include="DiningPhilosopher.cpp" />
+    <ClCompile Include="IJob.cpp" />
     <ClCompile Include="JobSystem.cpp" />
-    <ClCompile Include="ProducerConsumerProblem.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

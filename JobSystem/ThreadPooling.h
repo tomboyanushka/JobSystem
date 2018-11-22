@@ -32,10 +32,18 @@ public:
 				});
 			}
 			cv.notify_one();
+
+			if (task->Type == JobType::PERFRAMEJOB)
+			{
+				perFrameJobs.emplace_back(task);
+			}
 			return wrapper->get_future();
 	} 
+	void ExecuteCallbacks();
+
 private:
 	vector<thread> threads;
+	vector<IJob*> perFrameJobs;
 	condition_variable cv;
 	mutex mtx;
 	bool isStopped = false;

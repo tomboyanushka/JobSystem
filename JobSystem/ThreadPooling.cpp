@@ -11,6 +11,10 @@ ThreadPool::~ThreadPool()
 	Stop();
 }
 
+void ThreadPool::ExecuteCallbacks()
+{
+}
+
 void ThreadPool::Start(size_t numberOfThreads)
 {
 	for (auto i = 0; i < numberOfThreads; ++i)
